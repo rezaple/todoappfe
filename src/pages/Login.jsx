@@ -14,9 +14,9 @@ export default function Login() {
         event.preventDefault();
 
         const response = await apiClient.post('/auth/login',{username, password})
-
+        console.log(response)
         if(response.status === 200){
-            localStorage.setItem('token', response.token);
+            localStorage.setItem('token', response.data.token);
             toast.success('Login successful');
             setTimeout(() => {
                 navigate('/');
