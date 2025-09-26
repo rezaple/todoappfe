@@ -16,7 +16,7 @@ export default function Login() {
         const response = await apiClient.post('/auth/login',{username, password})
 
         if(response.status === 200){
-            localStorage.setItem('token', result.token);
+            localStorage.setItem('token', response.token);
             toast.success('Login successful');
             setTimeout(() => {
                 navigate('/');
