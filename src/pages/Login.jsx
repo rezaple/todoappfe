@@ -13,18 +13,23 @@ export default function Login() {
     async function handleLogin(event) {
         event.preventDefault();
 
-        const response = await apiClient.post('/auth/login',{username, password})
-        console.log(response)
-        if(response.status === 200){
-            localStorage.setItem('token', response.data.token);
-            toast.success('Login successful');
-            setTimeout(() => {
-                navigate('/');
-            }, 1000); 
-        } else {
-            // toast.error('Login failed: ' + result.message);
+        try {
+            const response = await apiClient.post('/auth/login',{username, password})
+        
+            if(response.status === 200){
+                localStorage.setItem('token', response.data.token);
+                toast.success('Login successful');
+                setTimeout(() => {
+                    navigate('/');
+                }, 1000); 
+            } else {
+                // toast.error('Login failed: ' + result.message);
+                toast.error('Login failed');
+                setPassword('');
+            }
+        } catch (error) {
             toast.error('Login failed');
-            setPassword('');
+                setPassword('');
         }
     }
 
